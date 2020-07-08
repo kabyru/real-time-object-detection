@@ -6,7 +6,7 @@
 import numpy as np
 import os
 import sys
-import tensorflow as tf
+import tensorflow as tf #Use TensorFlow 2.0!
 import pathlib
 import time
 
@@ -24,7 +24,7 @@ from PIL import Image #This uses Pillow, the successor to original PIL
 from IPython.display import display
 
 #Import the compiled object detection model (should have pip site-package installed in venv.)
-from object_detection.utils import ops as utils_ops
+from object_detection.utils import ops as utils_ops #Will need to compile this pip package in the TensorFlow models/research/ directory.
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util
 
