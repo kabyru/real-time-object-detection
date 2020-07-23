@@ -23,7 +23,7 @@ You will need the following Python packages to use this program:
 ### Step-by-Step Installation
 
  1. Install Python. You may choose to either install the vanilla Python 3.7 [here](https://www.python.org/downloads/release/python-378/) or install the Anaconda distribution for Python 3.7 [here.](https://www.anaconda.com/products/individual) *The latter is recommended.*
- 2. Install the above required Python packages. *Many of these packages come included when you install Anacanda, but do not if you install vanilla Python.*
+ 2. Install the above required Python packages. *Many of these packages come included when you install Anacanda, but do not if you install vanilla Python.* Use the included *tensorPackages.ps1 to do this automatically.*
  You will need to build the object-detection package [following these instructions.](https://colab.research.google.com/drive/1UEiJAnyp4gxukRZgEmHA9Qvh21vXyJ6k?usp=sharing)
  3. Download the custom object detection model you want to use. Either choose from the [TensorFlow Object Detection Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md) or make sure you have one locally on your system.
 #### If you received this program from me, custom models will be sent separately since they are not publicly released.
