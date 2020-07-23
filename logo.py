@@ -23,7 +23,7 @@ def printLogo():
         |gBD0+``"XHHR5^WHHHCTHHHQcGHHHHX$MHBA>           
          `+~```i@HHBv`lHHHR+?BHHHI^AHHHHP~`^e?` Raytheon Missiles and Defense           
               sQHHMl `gHHHA``GHHHO,`aRHHBF-`  Circuit Card Assembly Identifier  
-              `"ah}``|MHHHa  IHHHBt``lPS"`   v 0.1 - Alpha, configured for 3 sample CCAs
+              `"ah}``|MHHHa  IHHHBt``lPS"`   v 0.1.2 - Alpha, configured for 3 sample CCAs and YAML
                      "FGXm|  "XXGFi` ``    Written in 2020, by Kaleb Byrum, LSIC Louisville
                                                            
     """
