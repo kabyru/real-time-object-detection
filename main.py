@@ -1,12 +1,23 @@
 #Object Detection with a Defined Model, Real Time Detection
 
-#Written by Kaleb Byrum, with code taken by Google Research
+#Written by Kaleb Byrum for Raytheon Technologies, with code taken by Google Research
+
+from logo import printLogo
+
+printLogo() #Because we gotta know who wrote this ;)
+
+import yaml
+with open('file-paths.yaml') as file:
+    pathList = yaml.load(file, Loader=yaml.FullLoader)
+
+print("These file paths will be used in the program:")
+print(pathList)
 
 #First, import the necessary packages...
 import numpy as np
 import os
 import sys
-import tensorflow as tf #Use TensorFlow 2.0!
+import tensorflow as tf
 import pathlib
 import time
 
@@ -24,7 +35,7 @@ from PIL import Image #This uses Pillow, the successor to original PIL
 from IPython.display import display
 
 #Import the compiled object detection model (should have pip site-package installed in venv.)
-from object_detection.utils import ops as utils_ops #Will need to compile this pip package in the TensorFlow models/research/ directory.
+from object_detection.utils import ops as utils_ops
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util
 
@@ -41,34 +52,28 @@ tf.gfile = tf.io.gfile
 minThreshold = 0.5
 
 def load_obj_detection_model():
-    model_dir = os.getcwd() + "\\models\\petInference\\saved_model" #This needs to be redirected.
+    model_dir = str(pathlib.Path.cwd() / str(pathList['object-detection-model']))
     model = tf.saved_model.load(str(model_dir))
     model = model.signatures['serving_default']
 
     return model
 
-def load_img_seg_model():
-    model_dir = os.getcwd() + "\\models\\maskModel\\saved_model" #This needs to be redirected.
+# def load_img_seg_model():
+#     model_dir = pathlib.Path.cwd() / str(pathList['image-segmentation-model'])
 
-    model = tf.saved_model.load(str(model_dir))
-    model = model.signatures['serving_default']
+#     model = tf.saved_model.load(str(model_dir))
+#     model = model.signatures['serving_default']
 
-    return model
+#     return model
 
 #Next, load the LABEL MAP LOCATION...
 #We'll keep this relative, but it should follow this pattern...
-PATH_TO_LABELS = os.getcwd() + "\\models\\annotations\\label_map.pbtxt"
+PATH_TO_LABELS = str(pathlib.Path.cwd() / str(pathList['label-map-path']))
 category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_LABELS, use_display_name=True)
-
-#Next, load the image path of the test images.
-PATH_TO_TEST_IMAGES_DIR = pathlib.Path("models/images/test")
-TEST_IMAGE_PATHS = sorted(list(PATH_TO_TEST_IMAGES_DIR.glob("*.jpg")))
-#Upon success, there should be a dump of data that shows all the paths to train images.
-print(TEST_IMAGE_PATHS)
 
 #Next, load the object detection model with the previously defined functions...
 detection_model = load_obj_detection_model()
-masking_model = load_img_seg_model()
+#masking_model = load_img_seg_model()
 
 #This wrapper function will call the model, and then cleanup the outputs.
 #This is where this program will differ from previous iterations, we need to only pull away 
@@ -106,7 +111,7 @@ def run_inference_for_single_image(model, image):
     #print(output_dict)
     return output_dict
 
-#The function will run on each input image from a webcam or flie path and show the result.
+#The function will run on each input image from a webcam or file path and show the result.
 def show_inference(model, image_path, fromDirectory=False, showWindow=False, saveImage=True, count=0):
     #If the image comes from a webcam, then it will come already as a NP array.
     if (fromDirectory == False):
@@ -199,7 +204,6 @@ def process_webcam_image(image_path):
     processedImage = show_inference(detection_model, image_path, False, True, False, 0)
     processedImage = cv2.cvtColor(processedImage,cv2.COLOR_RGB2BGR)
     return processedImage
-    #show_inference(masking_model, image_path, True)
 
 #This handler will handle the webcam feed.
 def webcam_handler(mirror=False):
@@ -208,8 +212,8 @@ def webcam_handler(mirror=False):
         key = cv2.waitKey(1) & 0xFF
 
         frame = vs.read()
-        frame = im.resize(frame, height=240)
-        frame = im.resize(frame, width=320)
+        frame = im.resize(frame, height=int(pathList['height']))
+        frame = im.resize(frame, width=int(pathList['width']))
         #if mirror:
         #    img = cv2.flip(img,1)
 
@@ -223,5 +227,4 @@ def webcam_handler(mirror=False):
     cv2.destroyAllWindows()
     vs.stop()
 
-#One of these below needs to be uncommented...
 webcam_handler()
