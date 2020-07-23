@@ -1,0 +1,21 @@
+# This file contains the file paths for various files used by the real-time-object-detection program.
+# Change file paths here rather than in the program.
+
+#This file paths leads to the object detection model used. Always point to the subdirectory saved_model folder.
+object-detection-model: models/petInference/saved_model
+
+#This file path leads to the object detection model used. Always point to the subdirectory saved_model folder.
+#image-segmentation-model: models/maskModel/saved_model
+
+#This file path leads to the label_map used. Will correlate with the model used. Will be provided if using a custom model.
+label-map-path: models/annotations/label_map.pbtxt
+
+#This file path leads to the test images folder.
+#test-images-path: models/images/test
+
+#Camera settings
+#height: 240
+#width: 320
+
+height: 480
+width: 640
