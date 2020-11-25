@@ -1,6 +1,6 @@
 # Real Time Object Detection
 #### A driver program written to evaluate custom OD models in real time.
-##### Written by Kaleb Byrum for Raytheon Technologies.
+##### Written by Kaleb Byrum.
 
 ## Introduction
 This program aims to simplify the use of custom TensorFlow object detection models in a real-time setting. OpenCV is used to input a webcam frame, which is then used as input as evaluation of an object detection model. The results of the evaluation are returned in the same window as the webcam input, creating a real-time implementation of object detection.
